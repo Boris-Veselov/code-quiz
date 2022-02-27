@@ -1,0 +1,28 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+.wrapper {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#start-timer {
+    background-color: rgb(165, 43, 165);
+    color: #ffff;
+    border-radius: 20px;
+    outline: none;
+    padding: 5px 10px ;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(187, 81, 187)
+}
+
+#start-timer:hover {
+    border-color: black;
+}
