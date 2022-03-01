@@ -10,8 +10,8 @@ body {
     transform: translate(-50%, -50%);
 }
 
-#start-timer {
-    background-color: rgb(165, 43, 165);
+.btn {
+    background-color: rgb(117, 31, 117);
     color: #ffff;
     border-radius: 20px;
     outline: none;
@@ -23,6 +23,6 @@ a {
     color: rgb(187, 81, 187)
 }
 
-#start-timer:hover {
-    border-color: black;
+.btn:hover {
+    cursor: pointer;
 }

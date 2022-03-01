@@ -1,0 +1,14 @@
+.choice-container {
+    background-color: rgb(117, 31, 117);
+    display: flex;
+    width: 20%;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: #ffff;
+}
+
+.choice-container:hover {
+    cursor: pointer;
+}
+
