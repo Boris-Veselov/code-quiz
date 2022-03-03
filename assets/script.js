@@ -3,7 +3,7 @@ var choices = Array.from(document.getElementsByClassName("choice-text"));
 var incorrect = document.getElementById("incorrect");
 var correct = document.getElementById("correct");
 var timer = document.getElementById("timer");
-var scores = JSON.parse(localStorage.getItem("scores")) || [];
+
 
 // timer functions
 var timeLeft = 10;
@@ -17,52 +17,6 @@ var countdown = function() {
 };
 
 var startCountdown = setInterval(countdown, 1000);
-
-// save highscore to local storage
-var saveHighScore = function (event) {
-    event.preventDefault();
-
-    if (!initalsInputEl.value) {
-        alert("Please enter your initals.");
-        return;
-    };
-
-    var initals = initalsInputEl.value;
-    highScores.push({
-        initals: initals,
-        score: timeRemaining
-    });
-
-    highScores = highScores.sort(function (a, b) {
-        if (a.score > b.score) {
-            return -1;
-        } else if (b.score > a.score) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
-
-    localStorage.setItem("highscores", JSON.stringify(highScores));
-
-    showHighScore();
-
-    initalsInputEl.value = "";
-};
-
-// show high score on page
-var createHighScores = function () {
-    highScoreList.innerHTML = "";
-
-    for (var i = 0; i < scores.length; i++) {
-        var score = scores[i];
-        var scoreEl = document.createElement("li");
-        scoreEl.className = "high-score-item";
-        scoreEl.textContent = (i + 1) + ". " + score.initals + " - " + score.score;
-
-        highScoreList.appendChild(scoreEl);
-    }
-};
 
 var currentQuestion = {};
 var acceptingAnswers = false;
@@ -133,7 +87,6 @@ var getNewQuestion = function() {
     questionCounter++;
     var questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
-    question.innerText = currentQuestion.question;
 
     choices.forEach(choice => {
         var number = choice.dataset["number"];
@@ -171,4 +124,7 @@ choices.forEach(choice => {
     });
 });
 
+
+var startCountdown = setInterval(countdown, 1000);
 startQuiz();
+
