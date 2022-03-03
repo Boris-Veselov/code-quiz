@@ -1,14 +1,37 @@
-.choice-container {
-    background-color: rgb(117, 31, 117);
-    display: flex;
-    width: 20%;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    padding: 5px 10px;
-    color: #ffff;
-}
 
 .choice-container:hover {
     cursor: pointer;
 }
 
+.choice-text {
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.btn {
+    background-color: rgb(117, 31, 117);
+    color: #ffff;
+    border-radius: 20px;
+    outline: none;
+    padding: 5px 10px ;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(187, 81, 187);
+}
+    
+.btn:hover {
+    cursor: pointer;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}

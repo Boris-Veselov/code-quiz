@@ -1,13 +1,34 @@
-body {
+* {
+    box-sizing: border-box;
     font-family: Helvetica, Arial, sans-serif;
-  }
+    
+}
 
 .wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
     text-align: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .btn {
@@ -21,6 +42,7 @@ body {
 a {
     text-decoration: none;
     color: rgb(187, 81, 187)
+    
 }
 
 .btn:hover {
