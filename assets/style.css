@@ -13,6 +13,14 @@
     text-align: center;
 }
 
+.choice-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 4px;
+    border: 0.5px solid black;
+    background-color: #ffff;
+}
+
 .flex-column {
     display: flex;
     flex-direction: column;
