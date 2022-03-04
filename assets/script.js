@@ -1,130 +1,186 @@
-var question = document.getElementById("question");
-var choices = Array.from(document.getElementsByClassName("choice-text"));
-var incorrect = document.getElementById("incorrect");
-var correct = document.getElementById("correct");
-var timer = document.getElementById("timer");
 
+var score = 0;
+var questionIndex = 0;
+
+
+// variables
+var currentTime = document.querySelector("#timer");
+var timer = document.querySelector("#startTime");
+var questionsDiv = document.querySelector("#mainquestions");
+var wrapper = document.querySelector("#wrapper");
 
 // timer functions
-var timeLeft = 10;
+var secondsLeft = 76;
+var holdInterval = 0;
+var penalty = 10;
+var ulCreate = document.createElement("ul");
 
-var countdown = function() {
-    timeLeft--;
-    timer.innerHTML = timeLeft;
-    if(timeLeft === 0) {
-        clearInterval(startCountdown);
+timer.addEventListener("click", function () {
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
+            secondsLeft--;
+            currentTime.textContent = "Time: " + secondsLeft;
+
+            if (secondsLeft <= 0) {
+                clearInterval(holdInterval);
+                allDone();
+                currentTime.textContent = "It's over!";
+            }
+        }, 1000);
     }
-};
-
-var startCountdown = setInterval(countdown, 1000);
-
-var currentQuestion = {};
-var acceptingAnswers = false;
-var score = 0;
-var questionCounter = 0;
-var availableQuestions = [];
-
-// quiz questions
-var questions = [
-    {
-        question: "Inside which HTML element do we put the JavaScript?",
-        choice1: "<js",
-        choice2: "<script>",
-        choice3: "<scripting>",
-        choice4: "<java-forever>",
-        answer: 2
-    },
-    {
-        question: "Where is the correct place to insert a JavaScript?",
-        choice1: "<body>",
-        choice2: "<head>",
-        choice3: "<body> and <head>",
-        choice4: "Maybe none",
-        answer: 3
-    },
-    {
-        question: "How can you add a comment in a JavaScript?",
-        choice1: "/*-- this is comment --*/",
-        choice2: "<this is comment",
-        choice3: "// this is comment",
-        choice4: "! this is comment !",
-        answer: 3
-    },
-    {
-        question: "What is the correct way to write a JavaScript array?",
-        choice1: "var colors = [red, green, blue]",
-        choice2: "var colors => (red, green, blue)",
-        choice3: "var colors = array of colors",
-        choice4: "js doesn't have arrays",
-        answer: 1
-    },
-    {
-        question: "JavaScript is the same as Java?",
-        choice1: "Yes",
-        choice2: "No",
-        choice3: "Maybe",
-        choice4: "I don't know",
-        answer: 2
-    },
-]
-
-// main quiz functions
-var MAX_QUESTIONS = 5;
-
-var startQuiz = function() {
-    questionCounter = 0;
-    score = 0;
-    availableQuestions = [...questions];
-    getNewQuestion();
-};
-
-var getNewQuestion = function() {
-    if (availableQuestions.length === 0) {
-        localStorage.setItem("mostRecentScore", score);
-        return window.location.assign("./endgame.html");
-    }
-
-    questionCounter++;
-    var questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions[questionIndex];
-
-    choices.forEach(choice => {
-        var number = choice.dataset["number"];
-        choice.innerText = currentQuestion["choice" + number];
-})
-
-availableQuestions.splice(questionIndex, 1);
-
-acceptingAnswers = true;
-};
-
-// correct and incorrect choices
-choices.forEach(choice => {
-    choice.addEventListener('click', e => {
-        
-    acceptingAnswers = false;    
-    var selectedChoice = e.target;
-    var selectedAnswer = selectedChoice.dataset["number"];
-
-    var classToApply = "incorrect";
-    if (selectedAnswer == currentQuestion.answer) {
-        correct.classList.remove("hide");
-    } else {
-        incorrect.classList.remove("hide")
-    }
-    
-    selectedChoice.parentElement.classList.add(classToApply);
-
-    setTimeout( () => {
-    selectedChoice.parentElement.classList.remove(classToApply);
-    correct.classList.add("hide")
-    incorrect.classList.add("hide")
-    getNewQuestion();
-    }, 1000);
-    });
+    render(questionIndex);
 });
 
+// show questions
+function render(questionIndex) {
+    questionsDiv.innerHTML = "";
+    ulCreate.innerHTML = "";
+    // loops through array
+    for (var i = 0; i < questions.length; i++) {
+        var userQuestion = questions[questionIndex].title;
+        var userChoices = questions[questionIndex].choices;
+        questionsDiv.textContent = userQuestion;
+    }
+    userChoices.forEach(function (newItem) {
+        var listItem = document.createElement("li");
+        listItem.textContent = newItem;
+        questionsDiv.appendChild(ulCreate);
+        ulCreate.appendChild(listItem);
+        listItem.addEventListener("click", (compare));
+    })
+}
+// compare answers
+function compare(event) {
+    var element = event.target;
+        if (element.matches("li")) {
 
-var startCountdown = setInterval(countdown, 1000);
-startQuiz();
+        var newDiv = document.createElement("div");
+        newDiv.setAttribute("id", "newDiv");
+        if (element.textContent == questions[questionIndex].answer) {
+            score++;
+            newDiv.textContent = "It's correct! The answer is:  " + questions[questionIndex].answer;
+        } else {
+            secondsLeft = secondsLeft - penalty;
+            newDiv.textContent = "It's wrong! The correct answer is:  " + questions[questionIndex].answer;
+        }
 
+    }
+    questionIndex++;
+
+    if (questionIndex >= questions.length) {
+        allDone();
+        newDiv.textContent = "Quiz is over!" + " " + "You've got  " + score + "/" + questions.length + " Correct!";
+    } else {
+        render(questionIndex);
+    }
+    questionsDiv.appendChild(newDiv);
+
+}
+// All done will append last page
+function allDone() {
+    questionsDiv.innerHTML = "";
+    currentTime.innerHTML = "";
+
+    // Heading:
+    var createH1 = document.createElement("h1");
+    createH1.setAttribute("id", "createH1");
+    createH1.textContent = "All Done!"
+
+    questionsDiv.appendChild(createH1);
+
+    // Paragraph
+    var createP = document.createElement("p");
+    createP.setAttribute("id", "createP");
+
+    questionsDiv.appendChild(createP);
+
+    // Calculates time remaining and replaces it with score
+    if (secondsLeft >= 0) {
+        var timeRemaining = secondsLeft;
+        var createP2 = document.createElement("p");
+        clearInterval(holdInterval);
+        createP.textContent = "Your final score is: " + timeRemaining;
+
+        questionsDiv.appendChild(createP2);
+    }
+
+    // Label
+    var createLabel = document.createElement("label");
+    createLabel.setAttribute("id", "createLabel");
+    createLabel.textContent = "Enter your initials: ";
+
+    questionsDiv.appendChild(createLabel);
+
+    // input
+    var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
+
+    questionsDiv.appendChild(createInput);
+
+    // submit button
+    var createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "submit");
+    createSubmit.setAttribute("id", "Submit");
+    createSubmit.textContent = "Submit";
+
+    questionsDiv.appendChild(createSubmit);
+
+    // local storage for score
+    createSubmit.addEventListener("click", function () {
+        var initials = createInput.value;
+
+        if (initials === null) {
+
+            console.log("No value entered!");
+
+        } else {
+            var finalScore = {
+                initials: initials,
+                score: timeRemaining
+            }
+            console.log(finalScore);
+            var allScores = localStorage.getItem("allScores");
+            if (allScores === null) {
+                allScores = [];
+            } else {
+                allScores = JSON.parse(allScores);
+            }
+            allScores.push(finalScore);
+            var newScore = JSON.stringify(allScores);
+            localStorage.setItem("allScores", newScore);
+            // Travels to final page
+            window.location.replace("./highscores.html");
+        }
+    });
+
+}
+
+var questions = [
+    {
+        title: "Inside which HTML element do we put the JavaScript?",
+        choices: ["<js>", "<script>", "<scripting>>", "<java-forever>"],
+        answer: "<script>"
+    },
+    {
+        title: "Where is the correct place to insert a JavaScript?",
+        choices: ["body", "<head>", "body and head", "none of the above"],
+        answer: "body and head"
+    },
+    {
+        title: "What is the correct way to write a JavaScript array?",
+        choices: ["var colors = [red, green, blue]", "var colors => (red, green, blue)", "var colors = array of colors", "js doesn't have arrays"],
+        answer: "var colors = [red, green, blue]"
+    },
+    {
+        title: "How can you add a comment in a JavaScript?",
+        choices: ["/*-- this is comment --*/", "<this is comment", "// this is comment", "! this is comment !"],
+        answer: "// this is comment"
+    },
+    {
+        title: "JavaScript is the same as Java",
+        choices: ["Yes", "No", "Maybe", "I don't know"],
+        answer: "console log"
+    },
+];

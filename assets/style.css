@@ -1,58 +1,140 @@
-* {
-    box-sizing: border-box;
-    font-family: Helvetica, Arial, sans-serif;
-    
-}
-
-.wrapper {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    text-align: center;
-}
-
-.choice-container {
-    display: flex;
-    width: 100%;
-    margin-bottom: 4px;
-    border: 0.5px solid black;
-    background-color: #ffff;
-}
-
-.flex-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.flex-center {
-    justify-content: center;
-    align-items: center;
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.btn {
-    background-color: rgb(117, 31, 117);
-    color: #ffff;
-    border-radius: 20px;
-    outline: none;
-    padding: 5px 10px ;
+#wrapper {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    width: 500px;
+    height: 500px;
 }
 
 a {
     text-decoration: none;
-    color: rgb(187, 81, 187)
-    
+    color: black;
 }
 
-.btn:hover {
+button:hover {
     cursor: pointer;
+}
+
+button {
+    border-radius: 10px;
+}
+
+p {
+    text-align: center;
+}
+#startTime {
+    background-color: black;
+    margin-left: 33%;
+    padding: 15px 32px;
+    font-size: 20px;
+    color: white;
+}
+#mainquestions {
+    margin: 20px;
+}
+
+#timer {
+    float: right;
+}
+
+#goBack {
+    background-color: black;
+    position: relative;
+    padding: 10px;
+    font-size: 25px;
+    color: white;
+    top: 30%;
+    left: 55%;
+    width: auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+#clear {
+    background-color: grey;
+    position: relative;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    top: 30%;
+    right: 5%;
+    text-align: center;
+}
+
+textarea {
+    width: 90%;
+    margin: 20px;
+}
+
+#Submit {
+    background-color: black;
+    margin-left: 33%;
+    padding: 15px 32px;
+    font-size: 20px;
+    color: white;
+}
+
+label {
+    margin-right: 10px;
+}
+input {
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+h1 {
+    text-align: center;
+}
+
+li {
+    background-color: black;
+    margin-top: 10px;
+    padding: 5px 15px;
+    width: 80%;
+    font-size: 18px;
+    color: white;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+#newDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+/* A Media Query max-width: 786px */
+@media screen and (max-width: 786px) {
+body {
+    max-width: 786px;
+}
+#wrapper {
+position: absolute;
+left: 20%;
+}
+
+#goBack {
+    position: relative;
+    left: 50%;
+}
+
+#clear {
+    
+    position: relative;
+    right: 5%;
+    
+}
+}
+
+/* A Media Query max-width: 640px */
+@media screen and (max-width: 640px) {
+    body {
+        min-width: 640px;
+}
+    #wrapper {
+        position: absolute;
+        left: 75px;
+}
 }
