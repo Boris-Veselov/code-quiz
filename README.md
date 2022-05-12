@@ -1,7 +1,16 @@
-# code-quiz
+# Project name
 
-Assignment: create a code quiz application using HTML, CSS and JS.
+Code-quiz
+
+# Purpose: 
+
+An application to quiz you on wed dev topics that is built using HTML, CSS and JS.
+
+# Description:
 
 Simple quiz that features button clicks, prining of correct or wrong answers, showing timer during the quiz, entering your initials to submit your score.
 
-Link: https://veselavalava.github.io/code-quiz/
+# Screenshot
+
+# Link: 
+https://boris-veselov.github.io/code-quiz/
